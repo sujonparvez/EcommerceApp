@@ -1,0 +1,18 @@
+using Catalog.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+
+namespace Catalog.Infrastructure.Data;
+
+public class CatalogDbContext : DbContext
+{
+    public CatalogDbContext(DbContextOptions<CatalogDbContext> options) : base(options) { }
+
+    public DbSet<Product> Products => Set<Product>();
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        base.OnModelCreating(builder);
+    }
+}
